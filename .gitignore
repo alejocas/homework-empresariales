@@ -23,3 +23,6 @@ yarn-error.log*
 #Locks
 *-lock.json
 *.lock
+
+#ignoring the gitignore
+.gitignore
