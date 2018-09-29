@@ -1,8 +1,8 @@
 <template>
     <div>
         <form>
-            <input type="text" name="valueSearched" v-model="query">
-            <button type="submit" @click="searchItem">Buscar</button>
+            <input type="text" name="valueSearched" v-model="query" placeholder="Busque su producto aquí">
+            <button class="btn btn-primary" type="submit" @click="searchItem">Buscar</button>
         </form>
         <!-- Aquí van las tarjetas con productos. -->
         <ul>
@@ -38,7 +38,7 @@ export default {
       if (this.query != "") {
         axios({
           method: "GET",
-          url: `https://api.mercadolibre.com/sites/MCO/search?q=${this.query}&limit=5`
+          url: `https://api.mercadolibre.com/sites/MCO/search?q=${this.query}&limit=15`
         }).then(
           result => {
             this.items = result.data.results;
@@ -55,9 +55,17 @@ export default {
 </script>
 
 <style lang="scss">
-.item {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+
+ul {
+  text-align: left;
+}
+
+li {
+  list-style-type: none;
+  display: inline-flex;
+  width: 15%;
+  margin: 1% 1% 1% 1%;
+  text-align: center;
+  background-color: #FFFFFF;
 }
 </style>
