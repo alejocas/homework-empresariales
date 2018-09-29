@@ -1,10 +1,11 @@
 <template>
     <div>
-        <form v-on:submit='searchItem'>
-            <input type="text" class="form-control" v-model="query">
+        <form>
+            <input type="text" name="valueSearched" v-model="query">
+            <button type="submit" @click="searchItem">Buscar</button>
         </form>
         <div class="item" v-for="item in items" :key="item">
-            <!-- Aquí debemos colocar la tarjeta de items. -->
+            <!-- Aquí van las tarjetas con productos. -->
         </div>
     </div>
 </template>
@@ -21,29 +22,30 @@ export default {
     };
   },
   props: {},
-  mounted() {
-    axios({
-      method: "GET",
-      url: "https://api.mercadolibre.com/sites/MCO/search?q=Guantes"
-    }).then(
-      result => {
-        this.items = result.data.results;
-      },
-      error => {
-        this.items = error;
-      }
-    );
-  },
+  mounted() {},
   methods: {
-    searchItem: e => {
+    searchItem(e) {
       e.preventDefault();
+      if (this.query != "") {
+        axios({
+          method: "GET",
+          url: `https://api.mercadolibre.com/sites/MCO/search?q=${this.query}`
+        }).then(
+          result => {
+            this.items = result.data.results;
+          },
+          error => {
+            this.items = error;
+          }
+        );
+        this.query = "";
+      }
     }
   }
 };
 </script>
 
 <style lang="scss">
-
-.item
-
+.item {
+}
 </style>
